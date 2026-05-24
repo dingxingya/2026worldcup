@@ -1,0 +1,103 @@
+<view class="container">
+  <!-- 倒计时 -->
+  <view class="countdown-section">
+    <view class="countdown-bg">
+      <text class="countdown-title">2026 美加墨世界杯</text>
+      <text class="countdown-sub">USA · CANADA · MEXICO</text>
+      <view class="countdown-timer" wx:if="{{!started}}">
+        <view class="countdown-item">
+          <text class="countdown-num">{{countdown.days}}</text>
+          <text class="countdown-label">天</text>
+        </view>
+        <view class="countdown-sep">:</view>
+        <view class="countdown-item">
+          <text class="countdown-num">{{countdown.hours}}</text>
+          <text class="countdown-label">时</text>
+        </view>
+        <view class="countdown-sep">:</view>
+        <view class="countdown-item">
+          <text class="countdown-num">{{countdown.minutes}}</text>
+          <text class="countdown-label">分</text>
+        </view>
+        <view class="countdown-sep">:</view>
+        <view class="countdown-item">
+          <text class="countdown-num">{{countdown.seconds}}</text>
+          <text class="countdown-label">秒</text>
+        </view>
+      </view>
+      <view class="countdown-started" wx:else>
+        <text class="countdown-started-text">赛事进行中</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日赛程 -->
+  <view class="section" wx:if="{{todayMatches.length > 0}}">
+    <text class="section-title">今日赛程</text>
+    <view class="match-list">
+      <view class="match-card card" wx:for="{{todayMatches}}" wx:key="id" bindtap="onMatchTap" data-id="{{item.id}}">
+        <view class="match-header">
+          <text class="match-group">{{item.group}}组 · 第{{item.round}}轮</text>
+          <text class="match-time">{{item.time}}</text>
+        </view>
+        <view class="match-body">
+          <view class="match-team">
+            <text class="team-flag">{{item.homeFlag}}</text>
+            <text class="team-name">{{item.homeName}}</text>
+          </view>
+          <view class="match-score" wx:if="{{item.status === 'finished'}}">
+            <text class="score-num">{{item.homeScore}}</text>
+            <text class="score-sep">-</text>
+            <text class="score-num">{{item.awayScore}}</text>
+          </view>
+          <view class="match-vs" wx:else>
+            <text class="vs-text">VS</text>
+          </view>
+          <view class="match-team">
+            <text class="team-flag">{{item.awayFlag}}</text>
+            <text class="team-name">{{item.awayName}}</text>
+          </view>
+        </view>
+        <view class="match-footer">
+          <text class="match-venue">{{item.venue}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 即将开赛 -->
+  <view class="section">
+    <text class="section-title">即将开赛</text>
+    <view class="match-list">
+      <view class="match-card card" wx:for="{{upcomingMatches}}" wx:key="id" bindtap="onMatchTap" data-id="{{item.id}}">
+        <view class="match-header">
+          <text class="match-group">{{item.group}}组 · 第{{item.round}}轮</text>
+          <text class="match-time">{{item.date}} {{item.time}}</text>
+        </view>
+        <view class="match-body">
+          <view class="match-team">
+            <text class="team-flag">{{item.homeFlag}}</text>
+            <text class="team-name">{{item.homeName}}</text>
+          </view>
+          <view class="match-vs">
+            <text class="vs-text">VS</text>
+          </view>
+          <view class="match-team">
+            <text class="team-flag">{{item.awayFlag}}</text>
+            <text class="team-name">{{item.awayName}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分组总览 -->
+  <view class="section">
+    <text class="section-title">分组总览</text>
+    <view class="groups-grid">
+      <view class="group-chip" wx:for="{{['A','B','C','D','E','F','G','H','I','J','K','L']}}" wx:key="*this">
+        <text class="group-chip-text">{{item}}组</text>
+      </view>
+    </view>
+  </view>
+</view>
